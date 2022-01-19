@@ -18,6 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springtutorial.config.JwtConfig;
 import com.springtutorial.entity.AccountEntity;
 
+@CrossOrigin("http://localhost:3000")
 public class CustomJwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 	
 	private final AuthenticationManager authenticationManager;
@@ -36,6 +38,7 @@ public class CustomJwtAuthenticationFilter extends UsernamePasswordAuthenticatio
 		this.jwtConfig = jwtConfig;
 	}
 
+	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
@@ -45,6 +48,10 @@ public class CustomJwtAuthenticationFilter extends UsernamePasswordAuthenticatio
 			Authentication authentication = new UsernamePasswordAuthenticationToken(
 					account.getUsername(), 
 					account.getPassword());
+			response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+			response.setHeader("Access-Control-Allow-Credentials ", "true");
+			response.setHeader("Access-Control-Allow-Methods ", "GET, POST, OPTIONS");
+			response.setHeader("Access-Control-Allow-Headers ", "Origin, Content-Type, Accept");
 			return authenticationManager.authenticate(authentication);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

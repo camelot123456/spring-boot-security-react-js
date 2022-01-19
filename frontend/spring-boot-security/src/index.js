@@ -5,12 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import Web from "./templates/web/layouts/Web"
+import Account from "./components/AccountComponent.js"
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
-      <Web />
+      <Account />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

@@ -26,7 +26,7 @@ public class AccountApi {
 	private IAccountServ accountServ;
 	
 	@GetMapping("/accounts")
-	@PreAuthorize(value = "hasAnyRole('ROLE_USER')")
+//	@PreAuthorize(value = "hasAnyRole('ROLE_USER')")
 	public List<AccountEntity> showAccount() {
 		return accountServ.findAll();
 	}

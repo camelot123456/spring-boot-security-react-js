@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springtutorial.entity.RoleEntity;
+import com.springtutorial.model.FormLoginCustom;
 import com.springtutorial.service.IRoleServ;
 
 @RestController
@@ -32,6 +33,11 @@ public class RoleApi {
 	@PostMapping("/role")
 	public ResponseEntity<RoleEntity> doSave(@RequestBody RoleEntity role) {
 		return ResponseEntity.ok().body(roleServ.save(role));
+	}
+	
+	@PostMapping("/test")
+	public ResponseEntity<String> doTest(@RequestBody FormLoginCustom test) {
+		return ResponseEntity.ok().body(test.toString());
 	}
 	
 	@PutMapping("/role")

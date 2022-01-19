@@ -53,6 +53,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		customJwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
 		
 		http
+			.cors()
+			.and()
 			.csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
