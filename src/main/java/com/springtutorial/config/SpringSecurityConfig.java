@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.springtutorial.filter.CustomJwtAuthenticationFilter;
@@ -49,8 +50,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
-		CustomJwtAuthenticationFilter customJwtAuthenticationFilter = new CustomJwtAuthenticationFilter(authenticationManagerBean(), jwtConfig);
-		customJwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
+//		CustomJwtAuthenticationFilter customJwtAuthenticationFilter = new CustomJwtAuthenticationFilter(authenticationManagerBean(), jwtConfig);
+//		customJwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
 		
 		http
 			.cors()
@@ -62,8 +63,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/login**", "/logout**")
 			.permitAll()
 			.and()
-			.addFilter(customJwtAuthenticationFilter)
-			.addFilterBefore(new CustomJwtAuthorizaionFilter(), CustomJwtAuthenticationFilter.class)
+//			.addFilter(customJwtAuthenticationFilter)
+			.addFilterBefore(new CustomJwtAuthorizaionFilter(), UsernamePasswordAuthenticationFilter.class)
 			.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
 				.logoutUrl("/logout")

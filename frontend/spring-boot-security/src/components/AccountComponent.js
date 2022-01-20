@@ -15,7 +15,7 @@ function Account() {
   }
 
   const handleSubmitTest = () => {
-    AccountService.test({username: 'acc1', password: '1'}).then(resp => console.log(resp))
+    AccountService.test({username: 'acc2', password: '1'}).then(resp => console.log(resp.headers))
   }
 
   return (
@@ -46,7 +46,7 @@ function Account() {
       </button>
       <button
         onClick={handleSubmitTest}>
-            test
+            testLogin
       </button>
     </div>
   );
