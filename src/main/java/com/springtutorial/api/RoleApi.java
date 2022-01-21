@@ -52,4 +52,10 @@ public class RoleApi {
 		return ResponseEntity.ok().body(HttpStatus.NO_CONTENT);
 	}
 	
+	@DeleteMapping("/role")
+	public ResponseEntity<HttpStatus> doDeleteMany(@RequestBody RoleEntity role) {
+		roleServ.delete(role.getIds());
+		return ResponseEntity.ok().body(HttpStatus.NO_CONTENT);
+	}
+	
 }

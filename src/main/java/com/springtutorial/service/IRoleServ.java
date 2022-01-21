@@ -16,4 +16,6 @@ public interface IRoleServ {
 	
 	public void deleteById(String id);
 	
+	public void delete(String[] ids);
+	
 }

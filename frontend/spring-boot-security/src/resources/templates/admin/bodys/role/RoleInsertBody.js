@@ -75,7 +75,7 @@ function RoleInsert() {
             id="name"
             placeholder="Role name"
             onChange={(e) => setName(e.target.value)}
-            value={name}
+            value={name || ''}
           />
         </div>
 
@@ -89,7 +89,7 @@ function RoleInsert() {
             id="code"
             placeholder="Role code"
             onChange={(e) => setCode(e.target.value)}
-            value={code}
+            value={code || ''}
           />
         </div>
 

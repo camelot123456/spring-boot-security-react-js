@@ -1,4 +1,4 @@
-import httpClient from "../http-common.js";
+import httpClient from "../commons/http-common.js";
 
 function findAll() {
   return httpClient.get(`/accounts`);

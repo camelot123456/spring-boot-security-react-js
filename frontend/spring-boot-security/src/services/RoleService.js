@@ -1,4 +1,4 @@
-import httpCommon from "../http-common";
+import httpCommon from "../commons/http-common";
 
 function findAll() {
   return httpCommon.get(`/roles`);
@@ -20,4 +20,8 @@ function destroy(idRole) {
   return httpCommon.delete(`/role/${idRole}`)
 }
 
-export default { findAll, save, findOneById, update, destroy};
+function destroyMany(ids) {
+  return httpCommon.delete(`/role`, ids)
+}
+
+export default { findAll, save, findOneById, update, destroy, destroyMany};

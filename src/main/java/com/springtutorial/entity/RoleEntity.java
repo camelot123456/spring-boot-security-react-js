@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -21,6 +22,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "[ROLE]")
 public class RoleEntity {
 
+	@Transient
+	private String[] ids;
+	
 	@Id
 	private String id;
 	
