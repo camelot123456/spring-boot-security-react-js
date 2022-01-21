@@ -3,12 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
-import AdminLayout from "../src/resources/templates/admin/layouts/AdminLayout.js";
+import MainLayout from "../src/resources/templates/admin/layouts/AdminLayout.js";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <AdminLayout />
+      <MainLayout />
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

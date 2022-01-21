@@ -1,25 +1,27 @@
-import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import HeaderFragment from "../fragments/HeaderFragment.js";
-import SidebarFragment from "../fragments/SidebarFragment.js";
-import DashboardBodys from "../bodys/DashboardBodys.js";
-import FooterFragment from "../fragments/FooterFragment.js";
 
-function AdminLayout() {
+import HeaderFragment from "../fragments/HeaderFragment.js";
+import FooterFragment from "../fragments/FooterFragment.js";
+import AccountsBody from "../bodys/account/AccountsBody.js";
+import RolesBody from "../bodys/role/RolesBody.js";
+import NotFound from "../../error/bodys/404.js";
+import RoleInsert from "../../admin/bodys/role/RoleInsertBody.js"
+
+function MainLayout() {
+
   return (
-    <div className="sb-nav-fixed">
+    <>
       <HeaderFragment />
-      <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-          <SidebarFragment />
-        </div>
-        <div id="layoutSidenav_content">
-          <DashboardBodys />
-          <FooterFragment />
-        </div>
-      </div>
-    </div>
+      <Routes>
+        <Route exact path="/accounts" element={<AccountsBody />}></Route>
+        <Route path="/roles" element={<RolesBody />}></Route>
+        <Route path="/add" element={<RoleInsert />}></Route>
+        <Route path={`/role/:idRole`} element={<RoleInsert />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+      <FooterFragment />
+    </>
   );
 }
 
-export default AdminLayout;
+export default MainLayout;

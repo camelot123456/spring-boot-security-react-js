@@ -19,7 +19,7 @@ import com.springtutorial.service.IAccountServ;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AccountApi {
 
 	@Autowired

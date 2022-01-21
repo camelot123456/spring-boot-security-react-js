@@ -51,6 +51,7 @@ public class RoleServ implements IRoleServ{
 	@Override
 	public void deleteById(String id) {
 		// TODO Auto-generated method stub
+		System.out.println(id);
 		roleRepo.deleteById(id);
 	}
 

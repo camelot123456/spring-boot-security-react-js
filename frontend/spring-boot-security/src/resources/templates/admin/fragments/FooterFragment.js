@@ -1,7 +1,7 @@
 function FooterFragment() {
   return (
-    <footer className="py-4 bg-light mt-auto">
-      <div className="container-fluid px-4">
+    <footer className="py-4 bg-light mt-auto ">
+      <div className="container">
         <div className="d-flex align-items-center justify-content-between small">
           <div className="text-muted">Copyright &copy; Your Website 2021</div>
           <div>
