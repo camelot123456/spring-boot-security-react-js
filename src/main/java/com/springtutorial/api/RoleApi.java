@@ -3,6 +3,8 @@ package com.springtutorial.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,37 +27,47 @@ public class RoleApi {
 
 	@Autowired
 	private IRoleServ roleServ;
-	
+
 	@GetMapping("/roles")
 	public ResponseEntity<List<RoleEntity>> showRole() {
-		return ResponseEntity.ok().body(roleServ.findAll());
+		return ResponseEntity.ok().body(handlePaged(1, 10, "id", "asc", ""));
 	}
-	
+
+	@GetMapping("/roles/{currentPage}")
+	public List<RoleEntity> handlePaged(@PathVariable("currentPage") int currentPage, 
+			@Param("sizePage") int sizePage, 
+			@Param("sortField") String sortField, 
+			@Param("sortDir") String sortDir,
+			@Param("keyword") String keyword) {
+		Page<RoleEntity> roles = roleServ.findAllByKeyword(currentPage, sizePage, sortField, sortDir, keyword);
+		return roles.getContent();
+	}
+
 	@GetMapping("/role/{id}")
 	public ResponseEntity<RoleEntity> showRoleById(@PathVariable("id") String id) {
 		return ResponseEntity.ok().body(roleServ.findOneById(id));
 	}
-	
+
 	@PostMapping("/role")
 	public ResponseEntity<RoleEntity> doSave(@RequestBody RoleEntity role) {
 		return ResponseEntity.ok().body(roleServ.save(role));
 	}
-	
+
 	@PutMapping("/role")
 	public ResponseEntity<RoleEntity> doUpdate(@RequestBody RoleEntity role) {
 		return ResponseEntity.ok().body(roleServ.update(role));
 	}
-	
+
 	@DeleteMapping("/role/{id}")
 	public ResponseEntity<HttpStatus> doDelete(@PathVariable("id") String id) {
 		roleServ.deleteById(id);
 		return ResponseEntity.ok().body(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@DeleteMapping("/role")
 	public ResponseEntity<HttpStatus> doDeleteMany(@RequestBody RoleEntity role) {
 		roleServ.delete(role.getIds());
 		return ResponseEntity.ok().body(HttpStatus.NO_CONTENT);
 	}
-	
+
 }

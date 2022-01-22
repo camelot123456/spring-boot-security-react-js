@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
+import ModalCustom from "../../fragments/ModalCustomFragment.js";
 import RoleService from "../../../../../services/RoleService";
 
 var $ = document.querySelector.bind(document);
@@ -17,7 +18,7 @@ function RolesBody() {
   const handleClose = () => {
     setShowModalRoles(false);
     setShowModalRole(false);
-  }
+  };
   const handleShow = (idRole) => {
     setShowModalRole(true);
     setIdRole(idRole);
@@ -90,12 +91,12 @@ function RolesBody() {
     Array.from($$(".th-role input[type=checkbox]:checked")).forEach((element) =>
       ids.push(element.id)
     );
-    const data = {ids}
-    RoleService.destroyMany({data})
+    const data = { ids };
+    RoleService.destroyMany({ data })
       .then((resp) => {
         if (resp.status === 200) {
-          setShowModalRoles(false)
-          init()
+          setShowModalRoles(false);
+          init();
           document.getElementById("alert-roles").innerHTML = `
             <div class="alert alert-success" role="alert">
                 Successfully Deleted Role New!
@@ -103,7 +104,7 @@ function RolesBody() {
         }
       })
       .catch((err) => {
-        setShowModalRoles(false)
+        setShowModalRoles(false);
         document.getElementById("alert-roles").innerHTML = `
             <div class="alert alert-danger" role="alert">
                 ${err}
@@ -226,6 +227,17 @@ function RolesBody() {
           </button>
         </Modal.Footer>
       </Modal>
+      {/* <ModalCustom
+        show={showModalRoles}
+        onHide={handleClose}
+        keyboard={false}
+        title="Warning"
+        content="Do you want delete this roles ?"
+        nameBtnClose={"Close"}
+        cb_close={() => handleClose()}
+        nameBtnSubmit="Delete"
+        cb_submit={() => handleBtnDelMany()}
+      /> */}
     </div>
   );
 }

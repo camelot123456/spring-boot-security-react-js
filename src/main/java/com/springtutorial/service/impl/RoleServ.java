@@ -3,6 +3,9 @@ package com.springtutorial.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.springtutorial.entity.RoleEntity;
@@ -61,6 +64,18 @@ public class RoleServ implements IRoleServ{
 		for (String id : ids) {
 			roleRepo.deleteById(id);
 		}
+	}
+
+	@Override
+	public Page<RoleEntity> findAllByKeyword(int currentPage, int sizePage, String sortField, String sortDir, String keyword) {
+		// TODO Auto-generated method stub
+		Sort sort = Sort.by(sortField);
+		sort = sortDir.equals("acs") ? sort.ascending() : sort.descending();
+		PageRequest pageRequest = PageRequest.of(currentPage, sizePage);
+		if (keyword.equals("") || keyword == null) {
+			return roleRepo.findAll(pageRequest);
+		}
+		return roleRepo.search(keyword, pageRequest);
 	}
 
 }
