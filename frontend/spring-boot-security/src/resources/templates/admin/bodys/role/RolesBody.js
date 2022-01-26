@@ -1,19 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, createContext} from "react";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 
 import ModalCustom from "../../fragments/ModalCustomFragment.js";
+import TestFragment from "../../fragments/TestFragment.js";
 import RoleService from "../../../../../services/RoleService";
+import PagedCustom from "../../fragments/PagedFragment.js";
 
 var $ = document.querySelector.bind(document);
 var $$ = document.querySelectorAll.bind(document);
 
 function RolesBody() {
   const [roles, setRoles] = useState([]);
+  const [paged, setPaged] = useState({});
   const [idRole, setIdRole] = useState("");
+
   const [showModalRole, setShowModalRole] = useState(false);
   const [showModalRoles, setShowModalRoles] = useState(false);
   const [showBtnDel, setShowBtnDel] = useState(false);
+
+  const roleRef = useRef()
+  const PagedContext = createContext()
 
   const handleClose = () => {
     setShowModalRoles(false);
@@ -21,6 +28,7 @@ function RolesBody() {
   };
   const handleShow = (idRole) => {
     setShowModalRole(true);
+    setShowModalRoles(true);
     setIdRole(idRole);
   };
 
@@ -58,11 +66,29 @@ function RolesBody() {
   useEffect(() => {
     init();
   }, []);
-
+  
   const init = () => {
-    RoleService.findAll().then((resp) => setRoles(resp.data));
+    var params = {
+      // currentPage: pageRef.current.currentPage,
+      // sortDir: pageRef.current.sortDir,
+      // sortField: pageRef.current.sortField,
+      // keyword: pageRef.current.keyword,
+      // sizePage: pageRef.current.sizePage,
+      
+      currentPage: 0,
+      sortDir: "asc",
+      sortField: "id",
+      keyword: "",
+      sizePage: 4
+    };
+    
+    RoleService.findAllAndPagination(params).then((resp) => {
+      setRoles(resp.data.roles);
+      setPaged(resp.data.paged);
+      roleRef.current = resp.data
+    });
   };
-
+  
   const handleDelete = (e, idRole) => {
     e.preventDefault();
 
@@ -180,6 +206,8 @@ function RolesBody() {
         </tbody>
       </table>
 
+      <PagedCustom props={paged} />
+
       {/* Modal confirm delete role */}
       <Modal
         show={showModalRole}
@@ -227,17 +255,22 @@ function RolesBody() {
           </button>
         </Modal.Footer>
       </Modal>
+
       {/* <ModalCustom
-        show={showModalRoles}
-        onHide={handleClose}
-        keyboard={false}
-        title="Warning"
-        content="Do you want delete this roles ?"
-        nameBtnClose={"Close"}
-        cb_close={() => handleClose()}
-        nameBtnSubmit="Delete"
-        cb_submit={() => handleBtnDelMany()}
+        props={{
+          show: showModalRoles,
+          onHide: () => setShowModalRoles(false),
+          keyboard: false,
+          title: "Warning",
+          content: "Do you want delete this roles ?",
+          nameBtnClose: "Close",
+          cb_close: handleClose,
+          nameBtnSubmit: "Delete",
+          cb_submit: handleBtnDelMany
+        }}
       /> */}
+
+      <TestFragment content="<test 'react memo' thoi nhe!/>" />
     </div>
   );
 }

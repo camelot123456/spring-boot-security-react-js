@@ -4,12 +4,16 @@ function findAll() {
   return httpCommon.get(`/roles`);
 }
 
-function save(role) {
-  return httpCommon.post(`/role`, role);
+function findAllAndPagination(params) {
+  return httpCommon.get(`/roles/page/${params.currentPage}?sizePage=${params.sizePage}&sortField=${params.sortFiled}&sortDir=${params.sortDir}&keyword=${params.keyword}`);
 }
 
 function findOneById(idRole) {
     return httpCommon.get(`/role/${idRole}`)
+}
+
+function save(role) {
+  return httpCommon.post(`/role`, role);
 }
 
 function update(role) {
@@ -24,4 +28,4 @@ function destroyMany(ids) {
   return httpCommon.delete(`/role`, ids)
 }
 
-export default { findAll, save, findOneById, update, destroy, destroyMany};
+export default { findAll, findAllAndPagination, findOneById, save, update, destroy, destroyMany};
