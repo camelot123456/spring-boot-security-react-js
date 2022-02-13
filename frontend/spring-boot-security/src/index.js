@@ -2,16 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-import MainLayout from "../src/resources/templates/admin/layouts/AdminLayout.js";
+import MainLayout from "./pages/layouts/MainLayout";
+import store from "./redux/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <MainLayout />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <MainLayout />
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
