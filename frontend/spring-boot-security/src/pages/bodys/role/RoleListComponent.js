@@ -1,8 +1,21 @@
-import React from "react";
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { setFlagAction, deleteById } from "../../../redux/actions/role-action";
+import ModalCustom from "../../fragments/ModalCustom";
 
 function RoleListComponent(props) {
   const { roles } = props;
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+
+  const handleModalClose = () => setShow(false);
+  const handleModalShow = () => setShow(true);
+
+  const handleDeleteById = (idRole) => {
+    dispatch(deleteById(idRole));
+  };
 
   return (
     <>
@@ -24,12 +37,40 @@ function RoleListComponent(props) {
               <td>{role.name}</td>
               <td>{role.code}</td>
               <td className="text-center">
-                <Link to={`/role/${role.id}`}>Select</Link>
+                <Link
+                  style={{ minWidth: "30px" }}
+                  className="btn btn-info btn-sm me-2"
+                  to={`/role/${role.id}`}
+                  onClick={() => {
+                    dispatch(setFlagAction("update"));
+                  }}
+                >
+                  <i className="fa fa-info" aria-hidden="true"></i>
+                </Link>
+                <button
+                  style={{ minWidth: "30px" }}
+                  className="btn btn-danger btn-sm"
+                  onClick={handleModalShow}
+                >
+                  <i className="fa fa-trash" aria-hidden="true"></i>
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <ModalCustom
+        show={show}
+        title="Delete Role"
+        body="Do you want delete role ?"
+        nameBtnNegative="Delete"
+        nameBtnPositive="Close"
+        colorBtnNegative="danger"
+        colorBtnPositive="secondary"
+        onBtnPositive={handleModalClose}
+        onBtnNegative={handleDeleteById}
+      />
     </>
   );
 }

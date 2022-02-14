@@ -18,4 +18,12 @@ const save = (role) => {
   return httpCommon.post(`${URL_BASE}/role`, role)
 }
 
-export default { findAll , findAllAndPaged, findOneById, save};
+const update = (role) => {
+  return httpCommon.put(`${URL_BASE}/role`, role)
+}
+
+const deleteById = (idRole) => {
+  return httpCommon.delete(`${URL_BASE}/role/${idRole}`)
+}
+
+export default { findAll , findAllAndPaged, findOneById, save, update, deleteById};

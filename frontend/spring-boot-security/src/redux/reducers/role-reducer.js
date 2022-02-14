@@ -6,6 +6,7 @@ const initialState = {
   role: null,
   message: null,
   activeId: null,
+  flagAction: null,
 };
 
 const roleReducer = (state = initialState, { type, payload }) => {
@@ -30,8 +31,23 @@ const roleReducer = (state = initialState, { type, payload }) => {
         role: payload,
       };
 
+    case roleType.SET_FLAG_ACTION:
+      return {
+        ...state,
+        flagAction: payload,
+      };
+
     case roleType.SAVE:
-      console.log("save");
+      return {
+        ...state,
+      };
+
+    case roleType.UPDATE:
+      return {
+        ...state,
+      };
+
+    case roleType.DELETE:
       return {
         ...state,
       };

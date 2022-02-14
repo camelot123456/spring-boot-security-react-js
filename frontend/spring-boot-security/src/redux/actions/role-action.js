@@ -65,3 +65,47 @@ export const save = (role) => async (dispatch) => {
     });
   }
 };
+
+export const update = (role) => async (dispatch) => {
+  try {
+    await roleService.update(role);
+
+    dispatch({
+      type: roleType.UPDATE,
+    });
+  } catch (error) {
+    dispatch({
+      type: roleType.ERROR,
+      message: error,
+    });
+  }
+};
+
+export const deleteById = (idRole) => async (dispatch) => {
+  try {
+    await roleService.deleteById(idRole);
+
+    dispatch({
+      type: roleType.DELETE
+    })
+  } catch (error) {
+    dispatch({
+      type: roleType.ERROR,
+      patload: error
+    })
+  }
+}
+
+export const setFlagAction = (state) => async (dispatch) => {
+  try {
+    dispatch({
+      type: roleType.SET_FLAG_ACTION,
+      payload: state,
+    });
+  } catch (error) {
+    dispatch({
+      type: roleType.ERROR,
+      payload: error,
+    });
+  }
+};
