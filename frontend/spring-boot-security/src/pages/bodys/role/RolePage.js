@@ -27,13 +27,17 @@ const RolePage = () => {
     <>
       <h1 className="my-4">This is Role Page</h1>
       <AlertCustom alertState="danger" alertBody="Test Alert" />
-      <Link
-        className="btn btn-primary"
-        to="/role/add"
-        onClick={() => dispatch(setFlagAction("insert"))}
-      >
-        <i className="fa fa-plus" aria-hidden="true"></i>
-      </Link>
+
+      <div className="d-flex justify-content-between">
+        <Link
+          className="btn btn-primary"
+          to="/role/add"
+          onClick={() => dispatch(setFlagAction("insert"))}
+        >
+          <i className="fa fa-plus" aria-hidden="true"></i>
+        </Link>
+      </div>
+
       <RoleListComponent roles={roles} />
       <PaginationCustom pageInfo={pageInfo} onChangePaged={handlePageInfo} />
     </>

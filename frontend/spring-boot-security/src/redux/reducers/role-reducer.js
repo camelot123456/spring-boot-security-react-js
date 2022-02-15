@@ -37,6 +37,12 @@ const roleReducer = (state = initialState, { type, payload }) => {
         flagAction: payload,
       };
 
+    case roleType.SET_ACTIVE_ID:
+      return {
+        ...state,
+        activeId: payload,
+      };
+
     case roleType.SAVE:
       return {
         ...state,
@@ -50,6 +56,7 @@ const roleReducer = (state = initialState, { type, payload }) => {
     case roleType.DELETE:
       return {
         ...state,
+        activeId: null
       };
 
     default:

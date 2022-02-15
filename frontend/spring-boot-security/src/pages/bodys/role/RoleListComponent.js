@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 
-import { setFlagAction, deleteById } from "../../../redux/actions/role-action";
+import { setFlagAction, deleteById, setActiveId, findAllAndPaged } from "../../../redux/actions/role-action";
 import ModalCustom from "../../fragments/ModalCustom";
 
 function RoleListComponent(props) {
@@ -13,9 +13,20 @@ function RoleListComponent(props) {
   const handleModalClose = () => setShow(false);
   const handleModalShow = () => setShow(true);
 
-  const handleDeleteById = (idRole) => {
-    dispatch(deleteById(idRole));
+  const idRole = useSelector((state) => state.roleReducer.activeId);
+
+  const handleDeleteById = () => {
+    if(idRole) {
+      dispatch(deleteById(idRole))
+      dispatch(findAllAndPaged())
+      handleModalClose()
+    }
   };
+
+  const handleBtnDelete = (idRole) => {
+    dispatch(setActiveId(idRole));
+    handleModalShow()
+  }
 
   return (
     <>
@@ -50,7 +61,7 @@ function RoleListComponent(props) {
                 <button
                   style={{ minWidth: "30px" }}
                   className="btn btn-danger btn-sm"
-                  onClick={handleModalShow}
+                  onClick={() => handleBtnDelete(role.id)}
                 >
                   <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>

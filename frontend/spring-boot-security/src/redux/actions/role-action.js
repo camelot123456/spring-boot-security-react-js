@@ -109,3 +109,17 @@ export const setFlagAction = (state) => async (dispatch) => {
     });
   }
 };
+
+export const setActiveId = (idRole) => async (dispatch) => {
+  try {
+    dispatch({
+      type: roleType.SET_ACTIVE_ID,
+      payload: idRole,
+    });
+  } catch (error) {
+    dispatch({
+      type: roleType.ERROR,
+      payload: error,
+    });
+  }
+};

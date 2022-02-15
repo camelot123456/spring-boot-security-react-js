@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function PaginationCustom(props) {
   const {
@@ -10,7 +10,6 @@ function PaginationCustom(props) {
     totalElement,
     totalPage,
   } = props.pageInfo;
-
   const { onChangePaged } = props;
 
   //   ----------------------------- handlePageInfo -----------------------------
@@ -18,6 +17,26 @@ function PaginationCustom(props) {
     if (onChangePaged) {
       onChangePaged(params);
     }
+  };
+
+  const handleChangeSelectSizeElement = (_sizePage) => {
+    handlePageInfo({
+      currentPage: currentPage,
+      sizePage: _sizePage,
+      sortField: field,
+      sortDir: dir,
+      keyword: keyword,
+    });
+  };
+
+  const handleSearchForm = (_keyword) => {
+    handlePageInfo({
+      currentPage: currentPage,
+      sizePage: sizePage,
+      sortField: field,
+      sortDir: dir,
+      keyword: _keyword,
+    });
   };
 
   //   ----------------------------- handleShowPageElement -----------------------------
@@ -30,60 +49,44 @@ function PaginationCustom(props) {
   };
 
   return (
-    <nav aria-label="Page navigation example">
-      <ul className="pagination justify-content-end">
-        {/* ----------------------------- return first ----------------------------- */}
+    <div className="hstack d-flex justify-content-between align-items-center w-100">
+      <div className="hstack gap-2 w-50">
+        <div className="d-flex">
+          <input
+            className="form-control w-100"
+            type="search"
+            placeholder="Search"
+            onChange={(e) => handleSearchForm(e.target.value)}
+          />
+        </div>
 
-        <li className={currentPage === 0 ? "page-item disabled" : "page-item"}>
-          <button
-            className="page-link"
-            onClick={() =>
-              handlePageInfo({
-                currentPage: 0,
-                sizePage: sizePage,
-                sortField: field,
-                sortDir: dir,
-                keyword: keyword,
-              })
-            }
-          >
-            <i className="fa fa-angle-double-left" aria-hidden="true"></i>
-          </button>
-        </li>
+        <select
+          style={{ width: "20%" }}
+          className="form-select"
+          aria-label="Default select example"
+          onChange={(e) => handleChangeSelectSizeElement(e.target.value)}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+        </select>
+      </div>
 
-        {/* ----------------------------- return previous ----------------------------- */}
+      <nav aria-label="Page navigation example" className="w-50">
+        <ul className="pagination justify-content-end my-auto">
+          {/* ----------------------------- return first ----------------------------- */}
 
-        <li className={currentPage === 0 ? "page-item disabled" : "page-item"}>
-          <button
-            className="page-link"
-            onClick={() =>
-              handlePageInfo({
-                currentPage: currentPage - 1 <= 0 ? 0 : currentPage - 1,
-                sizePage: sizePage,
-                sortField: field,
-                sortDir: dir,
-                keyword: keyword,
-              })
-            }
-          >
-            <i className="fa fa-angle-left" aria-hidden="true"></i>
-          </button>
-        </li>
-
-        {/* ----------------------------- return current ----------------------------- */}
-
-        {handleShowPageElement().map((element) => (
           <li
-            className={
-              currentPage === element ? "page-item active" : "page-item"
-            }
-            key={element}
+            className={currentPage === 0 ? "page-item disabled" : "page-item"}
           >
             <button
               className="page-link"
               onClick={() =>
                 handlePageInfo({
-                  currentPage: element,
+                  currentPage: 0,
                   sizePage: sizePage,
                   sortField: field,
                   sortDir: dir,
@@ -91,61 +94,108 @@ function PaginationCustom(props) {
                 })
               }
             >
-              {element + 1}
+              <i className="fa fa-angle-double-left" aria-hidden="true"></i>
             </button>
           </li>
-        ))}
 
-        {/* ----------------------------- return next ----------------------------- */}
+          {/* ----------------------------- return previous ----------------------------- */}
 
-        <li
-          className={
-            currentPage === totalPage ? "page-item disabled" : "page-item"
-          }
-        >
-          <button
-            className="page-link"
-            onClick={() =>
-              handlePageInfo({
-                currentPage:
-                  currentPage + 1 >= totalPage ? totalPage : currentPage + 1,
-                sizePage: sizePage,
-                sortField: field,
-                sortDir: dir,
-                keyword: keyword,
-              })
+          <li
+            className={currentPage === 0 ? "page-item disabled" : "page-item"}
+          >
+            <button
+              className="page-link"
+              onClick={() =>
+                handlePageInfo({
+                  currentPage: currentPage - 1 <= 0 ? 0 : currentPage - 1,
+                  sizePage: sizePage,
+                  sortField: field,
+                  sortDir: dir,
+                  keyword: keyword,
+                })
+              }
+            >
+              <i className="fa fa-angle-left" aria-hidden="true"></i>
+            </button>
+          </li>
+
+          {/* ----------------------------- return current ----------------------------- */}
+
+          {handleShowPageElement().map((element) => (
+            <li
+              className={
+                currentPage === element ? "page-item active" : "page-item"
+              }
+              key={element}
+            >
+              <button
+                className="page-link"
+                onClick={() =>
+                  handlePageInfo({
+                    currentPage: element,
+                    sizePage: sizePage,
+                    sortField: field,
+                    sortDir: dir,
+                    keyword: keyword,
+                  })
+                }
+              >
+                {element + 1}
+              </button>
+            </li>
+          ))}
+
+          {/* ----------------------------- return next ----------------------------- */}
+
+          <li
+            className={
+              currentPage === totalPage ? "page-item disabled" : "page-item"
             }
           >
-            <i className="fa fa-angle-right" aria-hidden="true"></i>
-          </button>
-        </li>
+            <button
+              className="page-link"
+              onClick={() =>
+                handlePageInfo({
+                  currentPage:
+                    currentPage + 1 >= totalPage ? totalPage : currentPage + 1,
+                  sizePage: sizePage,
+                  sortField: field,
+                  sortDir: dir,
+                  keyword: keyword,
+                })
+              }
+            >
+              <i className="fa fa-angle-right" aria-hidden="true"></i>
+            </button>
+          </li>
 
-        {/* ----------------------------- return tail ----------------------------- */}
+          {/* ----------------------------- return tail ----------------------------- */}
 
-        <li
-          className={
-            currentPage === totalPage ? "page-item disabled" : "page-item"
-          }
-        >
-          <button
-            className="page-link"
-            onClick={() =>
-              handlePageInfo({
-                currentPage: totalPage,
-                sizePage: sizePage,
-                sortField: field,
-                sortDir: dir,
-                keyword: keyword,
-              })
+          <li
+            className={
+              currentPage === totalPage ? "page-item disabled" : "page-item"
             }
           >
-            <i className="fa fa-angle-double-right" aria-hidden="true"></i>
-          </button>
-        </li>
+            <button
+              className="page-link"
+              onClick={() =>
+                handlePageInfo({
+                  currentPage: totalPage,
+                  sizePage: sizePage,
+                  sortField: field,
+                  sortDir: dir,
+                  keyword: keyword,
+                })
+              }
+            >
+              <i className="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>
+          </li>
 
-        {/* ----------------------------- finish ----------------------------- */}
-      </ul>
-    </nav>
+          {/* ----------------------------- finish ----------------------------- */}
+        </ul>
+      </nav>
+    </div>
   );
 }
 

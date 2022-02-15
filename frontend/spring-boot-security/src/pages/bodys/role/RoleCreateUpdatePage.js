@@ -54,7 +54,7 @@ function RoleCreateUpdatePage() {
           className="form-control form-control-sm"
           id="name"
           onChange={(e) => setName(e.target.value)}
-          value={name}
+          value={name || ''}
           autoFocus
         />
       </div>
@@ -67,25 +67,25 @@ function RoleCreateUpdatePage() {
           type="text"
           className="form-control form-control-sm"
           id="code"
-          value={code}
+          value={code || ''}
           onChange={(e) => setCode(e.target.value)}
         />
       </div>
 
       <div className="hstack gap-3">
-        <button className="btn btn-danger" onClick={handleModalShow}>
-          delete
-        </button>
-
-        
-        {flagAction === "update" ? (
-          <button className="btn btn-success" onClick={handleUpdateRole}>
-            Save
-          </button>
-        ) : (
+        {flagAction === "insert" ? (
           <button className="btn btn-primary" onClick={handleSaveRole}>
             Create
           </button>
+        ) : (
+          <>
+            <button className="btn btn-danger" onClick={handleModalShow}>
+              delete
+            </button>
+            <button className="btn btn-success" onClick={handleUpdateRole}>
+              Save
+            </button>
+          </>
         )}
       </div>
 
