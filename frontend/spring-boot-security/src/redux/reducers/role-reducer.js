@@ -46,19 +46,33 @@ const roleReducer = (state = initialState, { type, payload }) => {
     case roleType.SAVE:
       return {
         ...state,
+        message: payload
       };
 
     case roleType.UPDATE:
       return {
         ...state,
+        message: payload,
       };
 
     case roleType.DELETE:
       return {
         ...state,
-        activeId: null
+        activeId: null,
+        message: payload,
       };
 
+    case roleType.ERROR:
+      return {
+        ...state,
+        message: payload,
+      };
+
+    case roleType.REMOVE_MESSAGE:
+      return {
+        ...state,
+        message: null
+      }
     default:
       return state;
   }

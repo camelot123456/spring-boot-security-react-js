@@ -57,6 +57,10 @@ export const save = (role) => async (dispatch) => {
 
     dispatch({
       type: roleType.SAVE,
+      payload: {
+        alertState: "success",
+        alertBody: "Created Successfully",
+      },
     });
   } catch (error) {
     dispatch({
@@ -72,11 +76,18 @@ export const update = (role) => async (dispatch) => {
 
     dispatch({
       type: roleType.UPDATE,
+      payload: {
+        alertState: "success",
+        alertBody: "Updated Successfully",
+      },
     });
   } catch (error) {
     dispatch({
       type: roleType.ERROR,
-      message: error,
+      payload: {
+        alertState: "danger",
+        alertBody: error.message,
+      },
     });
   }
 };
@@ -86,40 +97,39 @@ export const deleteById = (idRole) => async (dispatch) => {
     await roleService.deleteById(idRole);
 
     dispatch({
-      type: roleType.DELETE
-    })
-  } catch (error) {
-    dispatch({
-      type: roleType.ERROR,
-      patload: error
-    })
-  }
-}
-
-export const setFlagAction = (state) => async (dispatch) => {
-  try {
-    dispatch({
-      type: roleType.SET_FLAG_ACTION,
-      payload: state,
+      type: roleType.DELETE,
+      payload: {
+        alertState: "success",
+        alertBody: "Deleted Successfully",
+      },
     });
   } catch (error) {
     dispatch({
       type: roleType.ERROR,
-      payload: error,
+      payload: {
+        alertState: "danger",
+        alertBody: error.message,
+      },
     });
   }
 };
 
-export const setActiveId = (idRole) => async (dispatch) => {
-  try {
-    dispatch({
-      type: roleType.SET_ACTIVE_ID,
-      payload: idRole,
-    });
-  } catch (error) {
-    dispatch({
-      type: roleType.ERROR,
-      payload: error,
-    });
-  }
+export const setFlagAction = (state) => {
+  return {
+    type: roleType.SET_FLAG_ACTION,
+    payload: state,
+  };
+};
+
+export const setActiveId = (idRole) => {
+  return {
+    type: roleType.SET_ACTIVE_ID,
+    payload: idRole,
+  };
+};
+
+export const removeMessage = () => {
+  return {
+    type: roleType.REMOVE_MESSAGE,
+  };
 };

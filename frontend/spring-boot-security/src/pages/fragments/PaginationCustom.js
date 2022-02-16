@@ -149,7 +149,7 @@ function PaginationCustom(props) {
 
           <li
             className={
-              currentPage === totalPage ? "page-item disabled" : "page-item"
+              currentPage === totalPage - 1 ? "page-item disabled" : "page-item"
             }
           >
             <button
@@ -173,14 +173,14 @@ function PaginationCustom(props) {
 
           <li
             className={
-              currentPage === totalPage ? "page-item disabled" : "page-item"
+              currentPage === totalPage - 1 ? "page-item disabled" : "page-item"
             }
           >
             <button
               className="page-link"
               onClick={() =>
                 handlePageInfo({
-                  currentPage: totalPage,
+                  currentPage: totalPage - 1,
                   sizePage: sizePage,
                   sortField: field,
                   sortDir: dir,

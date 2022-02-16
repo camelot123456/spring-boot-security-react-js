@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { save, update, deleteById } from "../../../redux/actions/role-action";
 import roleService from "../../../services/role-service";
+import AlertCustom from "../../fragments/AlertCustom";
 import ModalCustom from "../../fragments/ModalCustom";
 
 function RoleCreateUpdatePage() {
@@ -17,6 +18,7 @@ function RoleCreateUpdatePage() {
   const { idRole } = useParams();
 
   const flagAction = useSelector((state) => state.roleReducer.flagAction);
+  const message = useSelector((state) => state.roleReducer.message);
 
   const handleModalClose = () => setShow(false);
   const handleModalShow = () => setShow(true);
@@ -45,6 +47,13 @@ function RoleCreateUpdatePage() {
     <div className="vstack gap-2">
       <h1 className="my-4">This is Create Role New Page</h1>
 
+      {message ?
+        <AlertCustom
+          alertState={message.alertState}
+          alertBody={message.alertBody}
+        /> : ''
+      }
+
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Name
@@ -54,7 +63,7 @@ function RoleCreateUpdatePage() {
           className="form-control form-control-sm"
           id="name"
           onChange={(e) => setName(e.target.value)}
-          value={name || ''}
+          value={name || ""}
           autoFocus
         />
       </div>
@@ -67,7 +76,7 @@ function RoleCreateUpdatePage() {
           type="text"
           className="form-control form-control-sm"
           id="code"
-          value={code || ''}
+          value={code || ""}
           onChange={(e) => setCode(e.target.value)}
         />
       </div>

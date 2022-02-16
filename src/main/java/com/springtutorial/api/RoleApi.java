@@ -44,7 +44,7 @@ public class RoleApi {
 			throws StreamWriteException, DatabindException, IOException {
 		String sortField = "id";
 		String sortDir = "asc";
-		int sizePage = 4;
+		int sizePage = 10;
 		int currentPage = 0;
 		
 		Page<RoleEntity> roles = handlePaged(currentPage, sizePage, sortField, sortDir, "", response);

@@ -13,6 +13,7 @@ import AlertCustom from "../../fragments/AlertCustom";
 const RolePage = () => {
   const roles = useSelector((state) => state.roleReducer.roles);
   const pageInfo = useSelector((state) => state.roleReducer.pageInfo);
+  const message = useSelector((state) => state.roleReducer.message);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +27,12 @@ const RolePage = () => {
   return (
     <>
       <h1 className="my-4">This is Role Page</h1>
-      <AlertCustom alertState="danger" alertBody="Test Alert" />
+      {message ? (
+        <AlertCustom
+          alertState={message.alertState}
+          alertBody={message.alertBody}
+        />
+      ) : ''}
 
       <div className="d-flex justify-content-between">
         <Link

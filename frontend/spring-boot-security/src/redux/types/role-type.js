@@ -8,6 +8,8 @@ const roleType = {
     FIND_ALL_AND_PAGED: 'FIND_ALL_AND_PAGED',
     SET_FLAG_ACTION: 'SET_FLAG_ACTION',
     SET_ACTIVE_ID: 'SET_ACTIVE_ID',
+    SET_MESSAGE: 'SET_MESSAGE',
+    REMOVE_MESSAGE: 'REMOVE_MESSAGE'
 }
 
 export default roleType
