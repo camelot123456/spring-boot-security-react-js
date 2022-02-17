@@ -11,7 +11,6 @@ function LoginPage() {
 
   const handleLoginForm = (e) => {
     e.preventDefault();
-    console.log({ username, password })
     dispatch(doLogin({ username, password }));
   };
 

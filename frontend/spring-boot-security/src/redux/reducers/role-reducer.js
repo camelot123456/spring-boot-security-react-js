@@ -14,15 +14,15 @@ const roleReducer = (state = initialState, { type, payload }) => {
     case roleType.FIND_ALL:
       return {
         ...state,
-        roles: payload.roles,
-        pageInfo: payload.paged,
+        roles: payload.roles.roles,
+        pageInfo: payload.roles.paged,
       };
 
     case roleType.FIND_ALL_AND_PAGED:
       return {
         ...state,
-        roles: payload.roles,
-        pageInfo: payload.paged,
+        roles: payload.roles.roles,
+        pageInfo: payload.roles.paged,
       };
 
     case roleType.FIND_ONE_BY_ID:
@@ -65,7 +65,9 @@ const roleReducer = (state = initialState, { type, payload }) => {
     case roleType.ERROR:
       return {
         ...state,
-        message: payload,
+        roles: [],
+        pageInfo: {},
+        message: payload.message
       };
 
     case roleType.REMOVE_MESSAGE:

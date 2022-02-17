@@ -7,12 +7,18 @@ export const findAll = () => async (dispatch) => {
 
     dispatch({
       type: roleType.FIND_ALL,
-      payload: rolePromise.data,
+      payload: {
+        roles: rolePromise.data,
+        messages: null
+      }
     });
   } catch (error) {
     dispatch({
       type: roleType.ERROR,
-      payload: error,
+      payload: {
+        message: error.message,
+        roles: []
+      },
     });
   }
 };
@@ -26,12 +32,18 @@ export const findAllAndPaged = (params) => async (dispatch) => {
 
     dispatch({
       type: roleType.FIND_ALL_AND_PAGED,
-      payload: rolePromise.data,
+      payload: {
+        roles: rolePromise.data,
+        messages: null
+      }
     });
   } catch (error) {
     dispatch({
       type: roleType.ERROR,
-      payload: error,
+      payload: {
+        message: error.message,
+        roles: []
+      },
     });
   }
 };

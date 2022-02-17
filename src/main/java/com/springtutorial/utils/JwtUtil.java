@@ -23,7 +23,7 @@ public class JwtUtil {
 	}
 	
 	public String createJwt(HttpServletRequest request, Authentication authentication) {
-		System.out.println(jwtConfig.getSecretKey()+";"+jwtConfig.getTokenPrefix());
+
 		Algorithm algorithm = Algorithm.HMAC256(jwtConfig.getSecretKey().getBytes());
 		
 		String accessToken = JWT.create()

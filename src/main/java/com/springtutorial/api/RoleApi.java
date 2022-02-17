@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ public class RoleApi {
 	private IRoleServ roleServ;
 
 	@GetMapping("/roles")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public void showRole(HttpServletResponse response)
 			throws StreamWriteException, DatabindException, IOException {
 		String sortField = "id";
@@ -62,6 +64,7 @@ public class RoleApi {
 	}
 
 	@GetMapping(value = {"/roles/page/{currentPage}"})
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public Page<RoleEntity> handlePaged(@PathVariable("currentPage") int currentPage,  
 			@Param("sizePage") int sizePage,
 			@Param("sortField") String sortField, 
@@ -85,27 +88,32 @@ public class RoleApi {
 	}
 
 	@GetMapping("/role/{id}")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<RoleEntity> showRoleById(@PathVariable("id") String id) {
 		return ResponseEntity.ok().body(roleServ.findOneById(id));
 	}
 
 	@PostMapping("/role")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<RoleEntity> doSave(@RequestBody RoleEntity role) {
 		return ResponseEntity.ok().body(roleServ.save(role));
 	}
 
 	@PutMapping("/role")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<RoleEntity> doUpdate(@RequestBody RoleEntity role) {
 		return ResponseEntity.ok().body(roleServ.update(role));
 	}
 
 	@DeleteMapping("/role/{id}")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<HttpStatus> doDelete(@PathVariable("id") String id) {
 		roleServ.deleteById(id);
 		return ResponseEntity.ok().body(HttpStatus.NO_CONTENT);
 	}
 
 	@DeleteMapping("/role")
+	@PreAuthorize(value = "hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<HttpStatus> doDeleteMany(@RequestBody RoleEntity role) {
 		roleServ.delete(role.getIds());
 		return ResponseEntity.ok().body(HttpStatus.NO_CONTENT);

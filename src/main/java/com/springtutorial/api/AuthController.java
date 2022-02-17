@@ -1,5 +1,9 @@
 package com.springtutorial.api;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.springtutorial.config.JwtConfig;
 import com.springtutorial.model.FormLoginCustom;
 import com.springtutorial.service.IAccountServ;
@@ -37,7 +44,7 @@ public class AuthController {
 	@PostMapping(value = "/login")
 	public ResponseEntity<?> authenticationUser(@RequestBody FormLoginCustom loginCustom,
 			HttpServletRequest request, 
-			HttpServletResponse response) {
+			HttpServletResponse response) throws StreamWriteException, DatabindException, IOException {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						loginCustom.getUsername(), 
@@ -49,6 +56,11 @@ public class AuthController {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", accessToken);
+		
+		Map<String, String> maps = new HashMap<String, String>();
+		maps.put("accessToken", accessToken);
+		
+		new ObjectMapper().writeValue(response.getOutputStream(), maps);
 		return new ResponseEntity<>(null, headers, HttpStatus.OK);
 	}
 	

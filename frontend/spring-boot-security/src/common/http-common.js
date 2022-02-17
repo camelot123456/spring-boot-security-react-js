@@ -7,3 +7,4 @@ export const httpCommon = axios.create({
         'Content-Type': 'application/json'
     }
 })
+

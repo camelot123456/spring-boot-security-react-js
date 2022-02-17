@@ -5,7 +5,12 @@ const doLogin = (authForm) => {
 }
 
 const doLogout = () => {
-    return httpCommon.post(`${URL_BASE}/logout`)
+    return httpCommon.post(`http://localhost:8081/logout`, {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+        }
+    })
 }
 
 export default {doLogin, doLogout}

@@ -10,8 +10,14 @@ const authReducer = (state = initialState, { type, payload }) => {
     case authType.LOGIN_ACTION:
       return {
         ...state,
-        message: payload.message,
-        authorization: payload.authorization
+        messages: payload.message,
+        authorization: payload.authorization,
+      };
+    case authType.LOGOUT_ACTION:
+      return {
+        ...state,
+        messages: payload.message,
+        authorization: null,
       };
     default:
       return {

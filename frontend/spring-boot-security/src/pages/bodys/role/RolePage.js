@@ -44,7 +44,7 @@ const RolePage = () => {
         </Link>
       </div>
 
-      <RoleListComponent roles={roles} />
+      <RoleListComponent pageInfo={pageInfo} roles={roles} />
       <PaginationCustom pageInfo={pageInfo} onChangePaged={handlePageInfo} />
     </>
   );

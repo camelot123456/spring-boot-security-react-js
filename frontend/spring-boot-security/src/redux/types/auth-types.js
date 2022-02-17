@@ -3,3 +3,5 @@ const authType = {
     LOGOUT_ACTION: 'LOGOUT_ACTION',
     ERROR_ACTION: 'ERROR_ACTION'
 }
+
+export default authType
