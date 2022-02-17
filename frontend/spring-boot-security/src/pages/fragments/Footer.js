@@ -3,8 +3,19 @@ import React from "react";
 const Footer = () => {
 
     return (
-        <div className="bg-light shadow">
-            <p className="py-2">Copy right © 2021</p>
+        <div id="layoutAuthentication_footer">
+          <footer className="py-4 bg-light mt-auto">
+            <div className="container-fluid px-4">
+              <div className="d-flex align-items-center justify-content-between small">
+                <div className="text-muted">Copyright &copy; Your Website 2021</div>
+                <div>
+                  <a href="#">Privacy Policy</a>
+                  &middot;
+                  <a href="#">Terms &amp; Conditions</a>
+                </div>
+              </div>
+            </div>
+          </footer>
         </div>
     )
 

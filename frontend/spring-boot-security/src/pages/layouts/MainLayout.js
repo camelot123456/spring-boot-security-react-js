@@ -7,6 +7,7 @@ import RoleCreateUpdatePage from "../bodys/role/RoleCreateUpdatePage";
 
 import Footer from "../fragments/Footer";
 import Header from "../fragments/Header";
+import LoginPage from "../bodys/security/LoginPage";
 
 const RolePage = React.lazy(() => import("../bodys/role/RolePage"));
 
@@ -52,6 +53,8 @@ const MainLayout = () => {
             path="/role/:idRole"
             element={<RoleCreateUpdatePage />}
           ></Route>
+
+          <Route path="/login" element={<LoginPage />}></Route>
           <Route path="*" element={<Error404Page />}></Route>
         </Routes>
       </div>
